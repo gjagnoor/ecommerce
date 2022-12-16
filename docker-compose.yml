@@ -4,5 +4,21 @@ services:
   django:
     image: django-docker:latest
     build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
+    volumes:
+      - .:/code
+  db:
+    image: postgres:12
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  postgres_data:

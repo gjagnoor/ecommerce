@@ -1,15 +1,15 @@
+# Pull base image
 FROM python:3
 
+# Set environment variables
 ENV PYTHONUNBUFFERED=1
 
+# Set work directory
 WORKDIR /code
 
-COPY requirements.txt .
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-RUN pip3 install -r requirements.txt
-
+# Copy project
 COPY . .
-
-EXPOSE 8000
-
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
